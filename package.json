@@ -1,0 +1,18 @@
+{
+  "name": "eleventy-plugin-description",
+  "version": "0.1.0",
+  "description": "Eleventy plugin for extracting a plaintext description from template contents",
+  "main": "index.js",
+  "keywords": [
+    "eleventy-plugin",
+    "eleventy",
+    "11ty",
+    "description"
+  ],
+  "author": "Mark Cohen",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mpcsh/eleventy-plugin-description.git"
+  },
+  "license": "BSD-3-Clause"
+}
