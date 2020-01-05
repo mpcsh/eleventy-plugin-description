@@ -3,7 +3,7 @@ const htmlToText = require('html-to-text');
 module.exports = {
   configFunction(
     eleventyConfig,
-    options = {
+    overrides = {
       htmlToTextOverrides: {},
       sentenceRegex: /(\p{Terminal_Punctuation}\p{White_Space})/gu,
       lengthCutoff: 200,
@@ -16,17 +16,17 @@ module.exports = {
         ignoreHref: true,
         ignoreImage: true,
         uppercaseHeadings: false,
-        ...options.htmlToTextOverrides,
+        ...overrides.htmlToTextOverrides,
       });
 
-      let sentences = content.split(options.sentenceRegex);
+      let sentences = content.split(overrides.sentenceRegex);
 
       let description = sentences.shift();
-      while (description.length < options.lengthCutoff) {
+      while (description.length < overrides.lengthCutoff) {
         description += sentences.shift() + sentences.shift();
       }
 
-      description += options.terminator;
+      description += overrides.terminator;
       return description;
     });
   },
