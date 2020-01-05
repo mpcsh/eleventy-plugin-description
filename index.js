@@ -6,7 +6,7 @@ module.exports = {
     options = {
       htmlToTextOverrides: {},
       sentenceRegex: /(\p{Terminal_Punctuation}\p{White_Space})/gu,
-      maxLength: 200,
+      lengthCutoff: 200,
       terminator: '...',
     },
   ) {
@@ -22,7 +22,7 @@ module.exports = {
       let sentences = content.split(options.sentenceRegex);
 
       let description = sentences.shift();
-      while (description.length < options.maxLength) {
+      while (description.length < options.lengthCutoff) {
         description += sentences.shift() + sentences.shift();
       }
 
