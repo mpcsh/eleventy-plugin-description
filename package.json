@@ -14,5 +14,8 @@
     "type": "git",
     "url": "https://github.com/mpcsh/eleventy-plugin-description.git"
   },
-  "license": "BSD-3-Clause"
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "html-to-text": "^5.1.1"
+  }
 }
