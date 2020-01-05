@@ -5,7 +5,7 @@ module.exports = {
     eleventyConfig,
     overrides = {
       htmlToTextOverrides: {},
-      sentenceRegex: /(\p{Terminal_Punctuation}\p{White_Space})/gu,
+      phraseRegex: /(\p{Terminal_Punctuation}\p{White_Space})/gu,
       lengthCutoff: 200,
       terminator: '...',
     },
@@ -19,11 +19,11 @@ module.exports = {
         ...overrides.htmlToTextOverrides,
       });
 
-      let sentences = content.split(overrides.sentenceRegex);
+      let phrases = content.split(overrides.phraseRegex);
 
-      let description = sentences.shift();
+      let description = phrases.shift();
       while (description.length < overrides.lengthCutoff) {
-        description += sentences.shift() + sentences.shift();
+        description += phrases.shift() + phrases.shift();
       }
 
       description += overrides.terminator;
