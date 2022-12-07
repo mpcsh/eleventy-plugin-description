@@ -16,6 +16,6 @@
   },
   "license": "BSD-3-Clause",
   "dependencies": {
-    "html-to-text": "^8.1.0"
+    "html-to-text": "^9.0.1"
   }
 }
