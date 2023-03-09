@@ -1,6 +1,6 @@
 {
   "name": "eleventy-plugin-description",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Eleventy plugin for extracting a plaintext description from template contents",
   "main": "index.js",
   "keywords": [
@@ -16,6 +16,6 @@
   },
   "license": "BSD-3-Clause",
   "dependencies": {
-    "html-to-text": "^8.1.0"
+    "html-to-text": "^9.0.4"
   }
 }
