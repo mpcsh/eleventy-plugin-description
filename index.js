@@ -1,46 +1,57 @@
-const { htmlToText } = require("html-to-text");
+const { convert } = require("html-to-text");
+const mergeWith = require("lodash.mergewith");
 
-function description(
-  templateContent,
-  overrides = {
-    htmlToTextOverrides: {},
-    phraseRegex: /(\p{Terminal_Punctuation}\p{White_Space})/gu,
-    lengthCutoff: 200,
-    terminator: "...",
-  }
-) {
-  let content = htmlToText(templateContent, {
+const DEFAULTS = {
+  phraseRegex: /(\p{Terminal_Punctuation}\p{White_Space})/gu,
+  lengthCutoff: 200,
+  terminator: "...",
+  htmlToTextOptions: {
     wordwrap: false,
-    ignoreHref: true,
-    ignoreImage: true,
-    uppercaseHeadings: false,
-    ...overrides.htmlToTextOverrides,
-  });
+    selectors: [
+      { selector: "a", options: { ignoreHref: true } },
+      { selector: "img", format: "skip" },
+      ...["h1", "h2", "h3", "h4", "h5", "h6"].map((selector) => ({
+        selector,
+        options: { uppercase: false },
+      })),
+    ],
+  },
+};
 
-  let phrases = content.split(overrides.phraseRegex);
+function concatArrays(dst, src) {
+  if (Array.isArray(dst)) {
+    return dst.concat(src);
+  }
+}
+
+function description(templateContent, overrides) {
+  const phraseRegex = overrides.phraseRegex ?? DEFAULTS.phraseRegex;
+  const lengthCutoff = overrides.lengthCutoff ?? DEFAULTS.lengthCutoff;
+  const terminator = overrides.terminator ?? DEFAULTS.terminator;
+  const htmlToTextOptions = mergeWith(
+    {},
+    DEFAULTS.htmlToTextOptions,
+    overrides.htmlToTextOptions,
+    concatArrays,
+  );
+
+  let content = convert(templateContent, htmlToTextOptions);
+  let phrases = content.split(phraseRegex);
 
   let description = "";
-  while (phrases.length > 0 && description.length < overrides.lengthCutoff) {
+  while (phrases.length > 0 && description.length < lengthCutoff) {
     description += phrases.shift();
   }
-  description += overrides.terminator;
+  description += terminator;
 
   return description;
 }
 
 module.exports = {
   description,
-  configFunction(
-    eleventyConfig,
-    overrides = {
-      htmlToTextOverrides: {},
-      phraseRegex: /(\p{Terminal_Punctuation}\p{White_Space})/gu,
-      lengthCutoff: 200,
-      terminator: "...",
-    }
-  ) {
+  configFunction(eleventyConfig, overrides) {
     eleventyConfig.addFilter("description", (text) =>
-      description(text, overrides)
+      description(text, overrides),
     );
   },
 };

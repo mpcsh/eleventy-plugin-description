@@ -54,20 +54,6 @@ config.addPlugin(description, {
 
 Here are all the possible overrides and a few notes on each.
 
-### `htmlToTextOverrides`
-Defaults:
-```js
-{
-  wordwrap: false,
-  ignoreHref: true,
-  ignoreImage: true,
-  uppercaseHeadings: false,
-}
-```
-
-This is an object containing properties to be passed to the `html-to-text` plugin. [Here](https://www.npmjs.com/package/html-to-text#options) is a reference for all the options available for `html-to-text`. This object is spread over the default options, so they can be overridden as well.
-
-
 ### `phraseRegex`
 Default: `/(\p{Terminal_Punctuation}\p{White_Space})/gu`
 
@@ -86,3 +72,24 @@ This is a fuzzy maximum length. It's not a hard maximum - in particular, phrases
 Default: `'...'`
 
 This is just a string that gets appended to the end of each excerpt. To disable, just set it to the empty string (`''`).
+
+
+### `htmlToTextOverrides`
+Defaults:
+```js
+{
+  wordwrap: false,
+  selectors: [
+    { selector: "a", options: { ignoreHref: true } },
+    { selector: "img", format: "skip" },
+    { selector: "h1", options: { uppercase: false }},
+    { selector: "h2", options: { uppercase: false }},
+    { selector: "h3", options: { uppercase: false }},
+    { selector: "h4", options: { uppercase: false }},
+    { selector: "h5", options: { uppercase: false }},
+    { selector: "h6", options: { uppercase: false }},
+  ],
+}
+```
+
+This is an object containing properties to be passed to the `html-to-text` plugin. [Here](https://github.com/html-to-text/node-html-to-text/tree/9.0.5/packages/html-to-text#options) is a reference for all the options available for `html-to-text`. This object is spread over the default options, so they can be overridden as well.
