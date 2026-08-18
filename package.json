@@ -20,7 +20,7 @@
     "lodash.mergewith": "^4.6.2"
   },
   "devDependencies": {
-    "eslint": "^9.2.0",
+    "eslint": "^10.8.1",
     "eslint-config-prettier": "^9.1.0",
     "prettier": "^3.2.5"
   }
